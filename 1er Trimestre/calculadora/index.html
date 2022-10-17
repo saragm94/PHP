@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Calculadora</title>
+    <link rel="stylesheet" href="css/style.css">
+    
+  </head>
+  <body>
+    <div id="formulario">
+        <form action="calculadora.php" method="post">
+            <p>Introduce el primer número: <input type="number" name="num1"></p>
+            <p>Introduce el segundo número: <input type="number" name="num2"></p>
+            <select name="op">
+                <option value="sum">Sumar</option>
+                <option value="res">Restar</option>
+                <option value="mul">Multiplicar</option>
+                <option value="div">Dividir</option>
+                <option value="resto">Resto</option>
+            </select>
+            <p><input type="submit"></p>
+        </form>
+    </div>
+  </body>
+</html>

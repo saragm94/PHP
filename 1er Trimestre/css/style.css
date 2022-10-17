@@ -1,0 +1,11 @@
+html{background-image: url(../img/pattern.svg); color:#002618}
+#formulario
+{
+    background-color: white;
+    height: 370px;
+    width: 300px;
+    padding: 1%;
+    border-radius: 5%;
+    margin: auto;
+}
+#formulario > p {padding-top: 1%;}
