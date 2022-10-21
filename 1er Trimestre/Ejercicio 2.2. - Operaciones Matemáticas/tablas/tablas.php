@@ -3,7 +3,6 @@
   <head>
     <meta charset="utf-8">
     <title>Tablas</title>
-    <link rel="stylesheet" href="css/stylephp.css">
   </head>
   <body>
     <?php 
@@ -15,7 +14,7 @@
             echo '<h4>Tabla de multiplicar del ' . ($num) .' </h4>';
             for($i = 1; $i <= 10; $i++)
             {
-                echo '<p>'.$num.' x '.$i.' = '$num*$i'</p>';
+                echo '<p>'.$num.' x '.$i.' = '.$num*$i.'</p>';
             }
             break;
         case "todas":
@@ -24,7 +23,7 @@
                 echo '<h4>Tabla de multiplicar del ' . ($j) .' </h4>';
                 for($i = 1; $i <= 10; $i++)
                 {
-                    echo '<p>'.$j.' x '.$i.' = '$j*$i'</p>';
+                    echo '<p>'.$j.' x '.$i.' = '.$j*$i.'</p>';
                 }
             }
             echo '</br>';
