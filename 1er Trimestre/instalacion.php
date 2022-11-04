@@ -8,9 +8,9 @@ try
     $conn = new PDO("mysql:host=$servername", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $sql ='CREATE DATABASE IF NOT EXISTS tiendaonlineSara;';
-    $sql .= 'create user "admin2" identified by "admin";';
-    $sql .= 'grant all on tiendaonlineSara.* to "admin2" with grant option;';
-    $sql .= 'grant select, create user on *.* to "admin2";';
+    $sql .= 'create user "sara" identified by "admin";';
+    $sql .= 'grant all on tiendaonlineSara.* to "sara" with grant option;';
+    $sql .= 'grant select, create user on *.* to "sara";';
     $conn->exec($sql);
     echo'Base de datos y usuario creados</br>';
 }catch(PDOException $e)
@@ -19,7 +19,7 @@ try
 }
 
 $conn = null;
-$username = 'admin2';
+$username = 'sara';
 $password = 'admin';
 $dbname = 'tiendaonlineSara';
 
