@@ -10,6 +10,12 @@
         echo "<h3>".$fila['nombre']."</h3>";
         echo "<p>".$fila['descripcion']."</p>";
         echo "<p>Precio: ".$fila['precio']."</p>";
+        $imagen = "select * from imagenesproductos where".$fila['id']." like imagenesproductos['idproducto'];";
+        $resultado2 = mysqli_query($connect,$imagen);
+        while($fila2 = mysqli_fetch_array($resultado2))
+        {
+            echo "<img src='photo/".$fila2['imagen']."'width='200px'>";
+        }
         echo "</br>";
     }
 ?>
