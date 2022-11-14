@@ -2,21 +2,33 @@
 <?php include'php/connect.inc'?>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 <?php 
-    mysqli_set_charset($connect, "utf8");
-    $peticion = "select * from productos where existencias > 0";
-    $resultado = mysqli_query($connect,$peticion);
-    while($fila = mysqli_fetch_array($resultado))
+try{
+    $conn -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $resultado = $conn->query("SELECT * FROM productos WHERE existencias > 0");
+    while($fila = $resultado -> fetch(PDO::FETCH_ASSOC))
     {
-        echo "<h3>".$fila['nombre']."</h3>";
-        echo "<p>".$fila['descripcion']."</p>";
-        echo "<p>Precio: ".$fila['precio']."</p>";
-        $imagen = "select * from imagenesproductos where".$fila['id']." like imagenesproductos['idproducto'];";
-        $resultado2 = mysqli_query($connect,$imagen);
-        while($fila2 = mysqli_fetch_array($resultado2))
+        $id = $fila['id'];
+        $img = $conn->query("SELECT imagen FROM imagenesproductos WHERE idproducto = $id group by idproducto");
+        while($fila2 = $img -> fetch(PDO::FETCH_ASSOC))
         {
-            echo "<img src='photo/".$fila2['imagen']."'width='200px'>";
+            echo "<div class='col'>
+                <a href='php/producto.php?id='".$id."'class='text-decoration-mpme text-reset'>
+                    <div class='card'>
+                        <img src='photo/".$fila2['imagen']."'class='card-img-top' alt='photo/'".$fila2['imagen']."'>
+                        <div class='card-body text-center'>
+                            <h5 class='card-title'>".$fila['nombre']."</h5>
+                            <p class='card-text'>".$fila['precio']."</p>
+                        </div>
+                        <div class='card-footer'>
+                            <a href='php/producto.php?id='".$id."'class='text-decoration-mpme text-reset'>Comprar</a>
+                        </div>
+                    </div>
+            </div>";
         }
-        echo "</br>";
     }
+}catch(PDOException $e)
+{
+    echo $resultado."</br>". $e ->getMensage();
+}
 ?>
 <?php include'php/piedepagina.inc'?>

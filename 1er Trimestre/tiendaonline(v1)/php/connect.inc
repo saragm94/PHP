@@ -4,9 +4,14 @@
     $passwd = "admin";
     $dbname = "tiendaonlinesara";
 
-    $connect = mysqli_connect($servername,$usu,$passwd,$dbname);
-    if(!$connect)
+    try
     {
-        die("Connection failed: " . mysqli_connect_error());
+        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $usu, $passwd);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    }catch(PDOException $e)
+    {
+        echo $resultado."</br>". $e ->getMensage();
     }
+    
+
 ?>
