@@ -38,7 +38,7 @@ try
         `city` varchar(255) NOT NULL,
         `state` varchar(255) NOT NULL,
         `country` varchar(255) NOT NULL,
-        `year_founded` int('MAS', 12) NOT NULL,
+        `year_founded` int(12) NOT NULL,
         `modality` varchar(3) NOT NULL,
         `league` varchar(255),
         `logo` varchar(255),
@@ -780,6 +780,7 @@ try
         `id_team` int(250),
         `number` int(3),
         `points` int(255) NOT NULL,
+        `season_number` varchar(10 NOT NULL),
         PRIMARY KEY (`id`),
         FOREIGN KEY (`id_player`) REFERENCES players(`id`),
         FOREIGN KEY (`id_team`) REFERENCES teams(`id`)
