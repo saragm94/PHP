@@ -8,9 +8,9 @@ try
     $conn = new PDO("mysql:host=$servername", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $sql ='CREATE DATABASE IF NOT EXISTS basket_league;';
-   // $sql .= 'create user "sara" identified by "admin";';
+    /*$sql .= 'create user "sara" identified by "admin";';
     $sql .= 'grant all on basket_league.* to "sara" with grant option;';
-    $sql .= 'grant select, create user on *.* to "sara";';
+    $sql .= 'grant select, create user on *.* to "sara";';*/
     $conn->exec($sql);
     echo'Base de datos y usuario creados</br>';
 }catch(PDOException $e)
@@ -19,8 +19,8 @@ try
 }
 
 $conn = null;
-$username = 'sara';
-$password = 'admin';
+/*$username = 'sara';
+$password = 'admin';*/
 $dbname = 'basket_league';
 
 //TABLE CREATION
@@ -28,6 +28,7 @@ try
 {
     $conn = new PDO ("mysql:host=$servername; dbname=$dbname", $username, $password);
     $conn -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $sql ='CREATE DATABASE IF NOT EXISTS basket_league;';
 
     //COUNTRIES
     $sql = "CREATE TABLE IF NOT EXISTS `countries` (
@@ -181,7 +182,7 @@ try
     ('YT', 'MAYOTTE', 'Mayotte', NULL, NULL, 269),
     ('MX', 'MEXICO', 'Mexico', 'MEX', 484, 52),
     ('FM', 'MICRONESIA, FEDERATED STATES OF', 'Micronesia, Federated States of', 'FSM', 583, 691),
-    ('MD', 'MOLDOVA, REPUBLIC OF', 'Moldova, Republic of', 'MDA', 498, 373),
+    ('MD', 'MOLDOVA REPUBLIC OF MOLDOVA', 'Republic of Moldova', 'MDA', 498, 373),
     ('MC', 'MONACO', 'Monaco', 'MCO', 492, 377),
     ('MN', 'MONGOLIA', 'Mongolia', 'MNG', 496, 976),
     ('MS', 'MONTSERRAT', 'Montserrat', 'MSR', 500, 1664),
@@ -251,7 +252,7 @@ try
     ('SY', 'SYRIAN ARAB REPUBLIC', 'Syrian Arab Republic', 'SYR', 760, 963),
     ('TW', 'TAIWAN, PROVINCE OF CHINA', 'Taiwan, Province of China', 'TWN', 158, 886),
     ('TJ', 'TAJIKISTAN', 'Tajikistan', 'TJK', 762, 992),
-    ('TZ', 'TANZANIA, UNITED REPUBLIC OF', 'Tanzania, United Republic of', 'TZA', 834, 255),
+    ('TZ', 'TANZANIA', 'UNITED REPUBLIC OF TANZANIA', 'United Republic of Tanzania', 'TZA', 834, 255),
     ('TH', 'THAILAND', 'Thailand', 'THA', 764, 66),
     ('TL', 'TIMOR-LESTE', 'Timor-Leste', NULL, NULL, 670),
     ('TG', 'TOGO', 'Togo', 'TGO', 768, 228),
@@ -288,10 +289,14 @@ try
     `id` int(255) NOT NULL AUTO_INCREMENT,
     `full_name` varchar( 255) NOT NULL,
     `abbreviation` varchar(10),
-    `country` int (11),
+    `country_id` int (11),
     PRIMARY KEY (`id`),
-    FOREIGN KEY (`country`) REFERENCES countries(`id`)
+    FOREIGN KEY (`country_id`) REFERENCES countries(`id`)
     );";
+
+    $sql .= "INSERT INTO `leagues` (`full_name`,`abbreviation`) VALUES
+    ('Womens National Basketball Association', 'WNBA'),
+    ('National Basketball Association', 'NBA');";
 
     //TEAMS
     $sql .= "CREATE TABLE IF NOT EXISTS `teams` (
@@ -301,7 +306,7 @@ try
         `nickname` varchar(50),
         `city` varchar(255) NOT NULL,
         `state` varchar(255) NOT NULL,
-        `country` int(11),
+        `country_id` int(11),
         `year_founded` int(12) NOT NULL,
         `modality` varchar(3) NOT NULL,
         `league` int(255),
@@ -311,52 +316,52 @@ try
         `colorC` varchar(7),
         PRIMARY KEY (`id`),
         FOREIGN KEY (league) REFERENCES leagues(`id`),
-        FOREIGN KEY (`country`) REFERENCES countries(`id`)
+        FOREIGN KEY (`country_id`) REFERENCES countries(`id`)
       );";
     
     $sql .= "INSERT INTO `teams` (`full_name`,`abbreviation`,`nickname`,`city`,`state`, `year_founded`,`modality`) VALUES
-    ('Atlanta Dream', 'ATL', 'Dream', 'Atlanta', 'Atlanta', 2007, 'FEM' ),
-    ('Chicago Sky', 'SKY', 'Sky', 'Chicago', 'Illinois',2006, 'FEM' ),
-    ('Connecticut Sun', 'SUN', 'Sun', 'Uncasville', 'Connecticut', 1999, 'FEM' ),
-    ('Indiana Fever', 'FEV', 'Fever', 'Indianapolis', 'Indiana', 2000, 'FEM' ),
-    ('New York Liberty', 'LIB', 'Liberty', 'Brooklyn', 'New York', 1996, 'FEM' ),
-    ('Washington Mystics', 'MYS', 'Mystics', 'Washington', 'D.C.', 1998, 'FEM' ),
-    ('Dallas Wings', 'WIN', 'Wings', 'University of Texas at Arlington Arlington', 'Texas', 1998, 'FEM' ),
-    ('Las Vegas Aces', 'ACE', 'Aces', 'Paradise', 'Nevada', 1997, 'FEM' ),
-    ('Los Angeles Sparks', 'SPA', 'Sparks', 'Los Angeles', 'California', 1997, 'FEM' ),
-    ('Minnesota Lynx', 'LYN','Lynx', 'Minneapolis', 'Minnesota', 1999, 'FEM' ),
-    ('Phoenix Mercury', 'MER', 'Mercury', 'Phoenix', 'Arizona', 1997, 'FEM' ),
-    ('Seattle Storm', 'STO', 'Storm', 'Seattle', 'Washington', 1999, 'FEM' ),
-    ('Atlanta Hawks', 'ATL', 'Hawks', 'Atlanta', 'Atlanta', 1949, 'MAS' ),
-    ('Boston Celtics', 'BOS', 'Celtics', 'Boston', 'Massachusetts', 1946, 'MAS' ),
-    ('Cleveland Cavaliers', 'CLE', 'Cavaliers', 'Cleveland', 'Ohio', 1970, 'MAS' ),
-    ('New Orleans Pelicans', 'NOP', 'Pelicans', 'New Orleans', 'Louisiana', 2002, 'MAS' ),
-    ('Chicago Bulls', 'CHI', 'Bulls', 'Chicago', 'Illinois', 1966, 'MAS' ),
-    ('Dallas Mavericks', 'DAL', 'Mavericks', 'Dallas', 'Texas',	1980, 'MAS' ),
-    ('Denver Nuggets', 'DEN', 'Nuggets', 'Denver', 'Colorado', 1976, 'MAS' ),
-    ('Golden State Warriors', 'GSW', 'Warriors', 'Golden State', 'California', 1946, 'MAS' ),
-    ('Houston Rockets', 'HOU', 'Rockets', 'Houston', 'Texas', 1967, 'MAS' ),
-    ('Los Angeles Clippers', 'LAC', 'Clippers', 'Los Angeles', 'California', 1970, 'MAS' ),
-    ('Los Angeles Lakers', 'LAL', 'Lakers', 'Los Angeles', 'California', 1948, 'MAS' ),
-    ('Miami Heat', 'MIA', 'Heat', 'Miami', 'Florida', 1988, 'MAS' ),
-    ('Milwaukee Bucks', 'MIL', 'Bucks', 'Milwaukee', 'Wisconsin', 1968, 'MAS' ),
-    ('Minnesota Timberwolves', 'MIN', 'Timberwolves', 'Minnesota', 'Minnesota', 1989, 'MAS' ),
-    ('Brooklyn Nets', 'BKN', 'Nets', 'Brooklyn', 'New York', 1976, 'MAS' ),
-    ('New York Knicks', 'NYK', 'Knicks', 'New York', 'New York', 1946, 'MAS' ),
-    ('Orlando Magic', 'ORL', 'Magic', 'Orlando', 'Florida', 1989, 'MAS' ),
-    ('Indiana Pacers', 'IND', 'Pacers', 'Indiana', 'Indiana', 1976, 'MAS' ),
-    ('Philadelphia 76ers', 'PHI', '76ers', 'Philadelphia', 'Pennsylvania', 1949, 'MAS' ),
-    ('Phoenix Suns', 'PHX', 'Suns', 'Phoenix', 'Arizona', 1968, 'MAS' ),
-    ('Portland Trail Blazers', 'POR', 'Trail Blazers', 'Portland', 'Oregon', 1970, 'MAS' ),
-    ('Sacramento Kings', 'SAC', 'Kings', 'Sacramento', 'California', 1948, 'MAS' ),
-    ('San Antonio Spurs', 'SAS', 'Spurs', 'San Antonio', 'Texas', 1976, 'MAS' ),
-    ('Oklahoma City Thunder', 'OKC', 'Thunder', 'Oklahoma City', 'Oklahoma', 1967, 'MAS' ),
-    ('Toronto Raptors', 'TOR', 'Raptors', 'Toronto', 'Ontario', 1995, 'MAS' ),
-    ('Utah Jazz', 'UTA', 'Jazz', 'Utah', 'Utah', 1974, 'MAS' ),
-    ('Memphis Grizzlies', 'MEM', 'Grizzlies', 'Memphis', 'Tennessee' , 1995, 'MAS' ),
-    ('Washington Wizards', 'WAS', 'Wizards', 'Washington', 'District of Columbia' , 1961, 'MAS' ),
-    ('Detroit Pistons', 'DET', 'Pistons', 'Detroit', 'Michigan', 1948, 'MAS' ),
-    ('Charlotte Hornets', 'CHA', 'Hornets', 'Charlotte', 'North Carolina', 1988, 'MAS' );";
+    ('Atlanta Dream', 'ATL', 'Dream', 'Atlanta', 'Atlanta', 2007, 'FEM'),
+    ('Chicago Sky', 'SKY', 'Sky', 'Chicago', 'Illinois',2006, 'FEM'),
+    ('Connecticut Sun', 'SUN', 'Sun', 'Uncasville', 'Connecticut', 1999, 'FEM'),
+    ('Indiana Fever', 'FEV', 'Fever', 'Indianapolis', 'Indiana', 2000, 'FEM'),
+    ('New York Liberty', 'LIB', 'Liberty', 'Brooklyn', 'New York', 1996, 'FEM'),
+    ('Washington Mystics', 'MYS', 'Mystics', 'Washington', 'D.C.', 1998, 'FEM'),
+    ('Dallas Wings', 'WIN', 'Wings', 'University of Texas at Arlington Arlington', 'Texas', 1998, 'FEM'),
+    ('Las Vegas Aces', 'ACE', 'Aces', 'Paradise', 'Nevada', 1997, 'FEM'),
+    ('Los Angeles Sparks', 'SPA', 'Sparks', 'Los Angeles', 'California', 1997, 'FEM'),
+    ('Minnesota Lynx', 'LYN','Lynx', 'Minneapolis', 'Minnesota', 1999, 'FEM'),
+    ('Phoenix Mercury', 'MER', 'Mercury', 'Phoenix', 'Arizona', 1997, 'FEM'),
+    ('Seattle Storm', 'STO', 'Storm', 'Seattle', 'Washington', 1999, 'FEM'),
+    ('Atlanta Hawks', 'ATL', 'Hawks', 'Atlanta', 'Atlanta', 1949, 'MAS'),
+    ('Boston Celtics', 'BOS', 'Celtics', 'Boston', 'Massachusetts', 1946, 'MAS'),
+    ('Cleveland Cavaliers', 'CLE', 'Cavaliers', 'Cleveland', 'Ohio', 1970, 'MAS'),
+    ('New Orleans Pelicans', 'NOP', 'Pelicans', 'New Orleans', 'Louisiana', 2002, 'MAS'),
+    ('Chicago Bulls', 'CHI', 'Bulls', 'Chicago', 'Illinois', 1966, 'MAS'),
+    ('Dallas Mavericks', 'DAL', 'Mavericks', 'Dallas', 'Texas',	1980, 'MAS'),
+    ('Denver Nuggets', 'DEN', 'Nuggets', 'Denver', 'Colorado', 1976, 'MAS'),
+    ('Golden State Warriors', 'GSW', 'Warriors', 'Golden State', 'California', 1946, 'MAS'),
+    ('Houston Rockets', 'HOU', 'Rockets', 'Houston', 'Texas', 1967, 'MAS'),
+    ('Los Angeles Clippers', 'LAC', 'Clippers', 'Los Angeles', 'California', 1970, 'MAS'),
+    ('Los Angeles Lakers', 'LAL', 'Lakers', 'Los Angeles', 'California', 1948, 'MAS'),
+    ('Miami Heat', 'MIA', 'Heat', 'Miami', 'Florida', 1988, 'MAS'),
+    ('Milwaukee Bucks', 'MIL', 'Bucks', 'Milwaukee', 'Wisconsin', 1968, 'MAS'),
+    ('Minnesota Timberwolves', 'MIN', 'Timberwolves', 'Minnesota', 'Minnesota', 1989, 'MAS'),
+    ('Brooklyn Nets', 'BKN', 'Nets', 'Brooklyn', 'New York', 1976, 'MAS'),
+    ('New York Knicks', 'NYK', 'Knicks', 'New York', 'New York', 1946, 'MAS'),
+    ('Orlando Magic', 'ORL', 'Magic', 'Orlando', 'Florida', 1989, 'MAS'),
+    ('Indiana Pacers', 'IND', 'Pacers', 'Indiana', 'Indiana', 1976, 'MAS'),
+    ('Philadelphia 76ers', 'PHI', '76ers', 'Philadelphia', 'Pennsylvania', 1949, 'MAS'),
+    ('Phoenix Suns', 'PHX', 'Suns', 'Phoenix', 'Arizona', 1968, 'MAS'),
+    ('Portland Trail Blazers', 'POR', 'Trail Blazers', 'Portland', 'Oregon', 1970, 'MAS'),
+    ('Sacramento Kings', 'SAC', 'Kings', 'Sacramento', 'California', 1948, 'MAS'),
+    ('San Antonio Spurs', 'SAS', 'Spurs', 'San Antonio', 'Texas', 1976, 'MAS'),
+    ('Oklahoma City Thunder', 'OKC', 'Thunder', 'Oklahoma City', 'Oklahoma', 1967, 'MAS'),
+    ('Toronto Raptors', 'TOR', 'Raptors', 'Toronto', 'Ontario', 1995, 'MAS'),
+    ('Utah Jazz', 'UTA', 'Jazz', 'Utah', 'Utah', 1974, 'MAS'),
+    ('Memphis Grizzlies', 'MEM', 'Grizzlies', 'Memphis', 'Tennessee' , 1995, 'MAS'),
+    ('Washington Wizards', 'WAS', 'Wizards', 'Washington', 'District of Columbia' , 1961, 'MAS'),
+    ('Detroit Pistons', 'DET', 'Pistons', 'Detroit', 'Michigan', 1948, 'MAS'),
+    ('Charlotte Hornets', 'CHA', 'Hornets', 'Charlotte', 'North Carolina', 1988, 'MAS');";
 
     //PLAYERS
     $sql .= "CREATE TABLE IF NOT EXISTS `players` (
@@ -365,12 +370,13 @@ try
         `first_name` varchar( 255),
         `last_name` varchar( 255),
         `heigth` int(10),
-        `country` int(11),
+        `country_id` int(11),
         `birth_date` datetime,
         `modality` varchar(3),
         `active` int(1) NOT NULL,
+        `photo` varchar(255),
         PRIMARY KEY (`id`),
-        FOREIGN KEY (`country`) REFERENCES countries(`id`)
+        FOREIGN KEY (`country_id`) REFERENCES countries(`id`)
       );";
 
     $sql .= "INSERT INTO `players` (`full_name`,`first_name`,`last_name`, `modality`, `active`) VALUES
@@ -557,7 +563,7 @@ try
     ('Malik Beasley',  'Malik',  'Beasley',  'MAS', 1),
     ('Marco Belinelli',  'Marco',  'Belinelli',  'MAS', 1),
     ('Jordan Bell',  'Jordan',  'Bell',  'MAS', 1),
-    ('DeAndre' Bembry',  'DeAndre'',  'Bembry',  'MAS', 1),
+    ('DeAndre Bembry',  'DeAndre',  'Bembry',  'MAS', 1),
     ('Dragan Bender',  'Dragan',  'Bender',  'MAS', 1),
     ('Davis Bertans',  'Davis',  'Bertans',  'MAS', 1),
     ('Patrick Beverley',  'Patrick',  'Beverley',  'MAS', 1),
@@ -676,7 +682,7 @@ try
     ('Dorian Finney-Smith',  'Dorian',  'Finney-Smith',  'MAS', 1),
     ('Bryn Forbes',  'Bryn',  'Forbes',  'MAS', 1),
     ('Evan Fournier',  'Evan',  'Fournier',  'MAS', 1),
-    ('De'Aaron Fox',  'De'Aaron',  'Fox',  'MAS', 1),
+    ('De Aaron Fox',  'De Aaron',  'Fox',  'MAS', 1),
     ('Michael Frazier',  'Michael',  'Frazier',  'MAS', 1),
     ('Tim Frazier',  'Tim',  'Frazier',  'MAS', 1),
     ('Melvin Frazier Jr.',  'Melvin',  'Frazier Jr.',  'MAS', 1),
@@ -696,7 +702,7 @@ try
     ('Brandon Goodwin',  'Brandon',  'Goodwin',  'MAS', 1),
     ('Aaron Gordon',  'Aaron',  'Gordon',  'MAS', 1),
     ('Eric Gordon',  'Eric',  'Gordon',  'MAS', 1),
-    ('Devonte' Graham',  'Devonte'',  'Graham',  'MAS', 1),
+    ('Devonte Graham',  'Devonte',  'Graham',  'MAS', 1),
     ('Treveon Graham',  'Treveon',  'Graham',  'MAS', 1),
     ('Jerami Grant',  'Jerami',  'Grant',  'MAS', 1),
     ('Josh Gray',  'Josh',  'Gray',  'MAS', 1),
@@ -748,7 +754,7 @@ try
     ('Dwight Howard', 'Dwight', 'Howard', 'MAS', 1),
     ('William Howard', 'William', 'Howard', 'MAS', 1),
     ('Kevin Huerter', 'Kevin', 'Huerter', 'MAS', 1),
-    ('De'Andre Hunter', 'De'Andre', 'Hunter', 'MAS', 1),
+    ('De Andre Hunter', 'De Andre', 'Hunter', 'MAS', 1),
     ('Chandler Hutchison', 'Chandler', 'Hutchison', 'MAS', 1),
     ('Serge Ibaka', 'Serge', 'Ibaka', 'MAS', 1),
     ('Andre Iguodala', 'Andre', 'Iguodala', 'MAS', 1),
@@ -846,7 +852,7 @@ try
     ('Ben McLemore', 'Ben', 'McLemore', 'MAS', 1),
     ('Jordan McRae', 'Jordan', 'McRae', 'MAS', 1),
     ('Nicolo Melli', 'Nicolo', 'Melli', 'MAS', 1),
-    ('De'Anthony Melton', 'De'Anthony', 'Melton', 'MAS', 1),
+    ('De Anthony Melton', 'De Anthony', 'Melton', 'MAS', 1),
     ('Chimezie Metu', 'Chimezie', 'Metu', 'MAS', 1),
     ('Khris Middleton', 'Khris', 'Middleton', 'MAS', 1),
     ('CJ Miles', 'CJ', 'Miles', 'MAS', 1),
@@ -860,7 +866,7 @@ try
     ('Adam Mokoka', 'Adam', 'Mokoka', 'MAS', 1),
     ('Malik Monk', 'Malik', 'Monk', 'MAS', 1),
     ('Matt Mooney', 'Matt', 'Mooney', 'MAS', 1),
-    ('E'Twaun Moore', 'E'Twaun', 'Moore', 'MAS', 1),
+    ('E Twaun Moore', 'E Twaun', 'Moore', 'MAS', 1),
     ('Ja Morant', 'Ja', 'Morant', 'MAS', 1),
     ('Juwan Morgan', 'Juwan', 'Morgan', 'MAS', 1),
     ('Markieff Morris', 'Markieff', 'Morris', 'MAS', 1),
@@ -886,8 +892,8 @@ try
     ('Kendrick Nunn', 'Kendrick', 'Nunn', 'MAS', 1),
     ('Jusuf Nurkic', 'Jusuf', 'Nurkic', 'MAS', 1),
     ('David Nwaba', 'David', 'Nwaba', 'MAS', 1),
-    ('Royce O'Neale', 'Royce', 'O'Neale', 'MAS', 1),
-    ('Kyle O'Quinn', 'Kyle', 'O'Quinn', 'MAS', 1),
+    ('Royce O Neale', 'Royce', 'O Neale', 'MAS', 1),
+    ('Kyle O Quinn', 'Kyle', 'O Quinn', 'MAS', 1),
     ('Semi Ojeleye', 'Semi', 'Ojeleye', 'MAS', 1),
     ('Jahlil Okafor', 'Jahlil', 'Okafor', 'MAS', 1),
     ('Elie Okobo', 'Elie', 'Okobo', 'MAS', 1),
@@ -943,7 +949,7 @@ try
     ('Terrence Ross', 'Terrence', 'Ross', 'MAS', 1),
     ('Terry Rozier', 'Terry', 'Rozier', 'MAS', 1),
     ('Ricky Rubio', 'Ricky', 'Rubio', 'MAS', 1),
-    ('D'Angelo Russell', 'D'Angelo', 'Russell', 'MAS', 1),
+    ('D Angelo Russell', 'D Angelo', 'Russell', 'MAS', 1),
     ('Domantas Sabonis', 'Domantas', 'Sabonis', 'MAS', 1),
     ('Luka Samanic', 'Luka', 'Samanic', 'MAS', 1),
     ('JaKarr Sampson', 'JaKarr', 'Sampson', 'MAS', 1),
@@ -1065,6 +1071,18 @@ try
       FOREIGN KEY (`id_local_team`) REFERENCES teams(`id`),
       FOREIGN KEY (`id_visit_team`) REFERENCES teams(`id`)
   );";
+  
+  //SEASON_RANK
+  $sql .= "CREATE TABLE IF NOT EXISTS `season_rank` (
+    `id` int( 255) NOT NULL AUTO_INCREMENT,
+    `season_number` VARCHAR(10) NOT NULL,
+    `id_team` INT (255) NOT NULL,
+    `wins` INT (3) NOT NULL,
+    `loses` INT (3),
+    `win_percent` FLOAT(255),
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`id_team`) REFERENCES teams(`id`),
+);";
 
   //TRANSACTIONS_HISTORIC
   $sql .= "CREATE TABLE IF NOT EXISTS `transactions_historic` (
