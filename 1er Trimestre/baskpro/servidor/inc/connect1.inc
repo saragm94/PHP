@@ -1,8 +1,9 @@
 <?php
-    $servername = 'localhost';
-    $dbname = 'basket_league';
-    $username = 'root';
-    $password = '';
+    $servername = "localhost";
+    $username = 'u674705277_sara2';
+    $password = 'Pulido1234';
+    $dbname = 'u674705277_sara2';
+    $sql = '';
 
     try
     {

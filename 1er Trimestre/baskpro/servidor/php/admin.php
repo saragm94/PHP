@@ -33,9 +33,6 @@
         <label>Logo:</label>
         <input type="file" name="logo">
     </div>
-
-
     <button type="submit" name="register" value="register">ADD</button>
 </form>
-
 <?php include'../inc/piedepagina.inc'?>
