@@ -1,5 +1,6 @@
 <?php include'../inc/cabecera.inc'?>
 <?php include'../inc/connect.inc'?>
+<link rel="stylesheet" href="../css/style.css">
 <?php 
     $id = $_GET['id'];
     $conn -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

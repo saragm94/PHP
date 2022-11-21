@@ -1,5 +1,6 @@
 <?php include'inc/cabecera.inc'?>
 <?php include'inc/connect.inc'?>
+<link rel="stylesheet" href="css/style.css">
 <?php 
 $resultado = '';
 try{
@@ -18,8 +19,8 @@ try{
         {
             echo "
                             <div class='card mx-4 mt-2 col-3''>
-                                <div class='card-block'>
-                                    <img id='logo' src='img/teams/".$fila2['logo']."'class='card-img-top mx-auto ' alt=''".$fila2['logo']."'>
+                                <div class='card-block text-center'>
+                                    <img id='logo' src='teams/".$fila2['logo']."'class='card-img-top mx-auto ' alt=''".$fila2['logo']."'>
                                     <div class='card-body'>
                                         <div class='card-body text-center'>
                                             <h5 class='card-title'>".$fila['full_name']."</h5>
