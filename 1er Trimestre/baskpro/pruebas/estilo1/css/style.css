@@ -1,0 +1,28 @@
+/*PHONES
+@media only screen and (max-width: 400px) {
+    body
+    {
+        background-image: url('../img/background-sm.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 100vh;
+    }
+}
+@media only screen and (min-width:401px) {
+    body
+    {
+        background-image: url('../img/background-sm.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 100vh;
+    }
+    
+}
+@media only screen and (min-width:950px) {
+    body{
+        background-image: url('../img/background-mid-big.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 100vh;
+    }
+}*/
