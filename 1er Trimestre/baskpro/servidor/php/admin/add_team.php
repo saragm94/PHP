@@ -33,7 +33,6 @@
         else{
             echo"Error al subir la imagen</br>";
         }
-        
     }
     header("location: ../../index.php");
 ?>
