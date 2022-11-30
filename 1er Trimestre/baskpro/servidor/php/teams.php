@@ -30,39 +30,75 @@
                     <div class ='col d-flex justify-content-center'>
                     <canvas id='points_chart' style='max-width:600px'></canvas>
                         <script>
+                            var x_local_points= [];
+                            var y_local_dates = [7,8,8,9,9,9,10,11,14,14,15];
+
+                            var x_visit_points = [];
+                            var y_visit_dates = [7,8,8,9,9,9,10,11,14,14,15];
                         ";  
                         $local_t = $conn->query("SELECT * FROM matches WHERE id_local_team = $id");
                         while($local_p = $local_t->fetch(PDO::FETCH_ASSOC))
                         {
+                            echo"x_local_points.push(".$local_p['local_points'].");";
+                        }
 
-                        }; 
+                        $visit_t = $conn->query("SELECT * FROM matches WHERE id_visit_team = $id");
+                        while($visit_p = $visit_t->fetch(PDO::FETCH_ASSOC))
+                        {
+                            echo"x_visit_points.push(".$visit_p['visit_points'].");";
+                        }
                         echo"
-                            var x_points = [40,50,60,70,80,900,100,110,120,130,140];
-
-                            var x_ local_points= [50,60,70,80,90,100,110,120,130,140,150];
-                            var y_local_dates = [7,8,8,9,9,9,10,11,14,14,15];
-
-                            var x_visit_points = [50,60,70,80,90,100,110,120,130,140,150];
-                            var y_visit_dates = [7,8,8,9,9,9,10,11,14,14,15];
-
-                            new Chart('points_chart', {
-                            type: 'line',
-                            data: {
-                                labels: x_local_points,
-                                datasets: [{
+                            console.log(x_local_points);
+                            console.log(x_visit_points);
+                            
+                            var data_local =
+                            {
+                                label: 'Local points',
+                                data: x_local_points,
+                                lineTension: 0,
                                 fill: false,
-                                lineTension: null,
                                 backgroundColor: 'rgba(0,0,255,1.0)',
                                 borderColor: 'rgba(0,0,255,0.1)',
-                                data: y_local_dates
-                                }]
-                            },
-                            options: {
-                                legend: {display: false},
-                                scales: {
-                                yAxes: [{ticks: {min: 6, max:16}}],
+                            };
+
+                            var data_visit =
+                            {
+                                label: 'Visit points',
+                                data: x_visit_points,
+                                lineTension: 0,
+                                fill: false,
+                                backgroundColor: 'rgba(75, 192, 192,1.0)',
+                                borderColor: 'rgba(75, 192, 192,0.3)',
+                            };
+
+                            var datas = 
+                            {
+                                labels: y_visit_dates,
+                                datasets: [data_local, data_visit]
+                            };
+
+                            var chartOptions = {
+                                legend: {
+                                  display: true,
+                                  position: 'bottom',
+                                  labels: 
+                                  {
+                                    boxWidth: 80,
+                                    fontColor: 'black'
+                                  },
+                                  scales: 
+                                  {
+                                    yAxes: [{ticks: {}}],
+                                  }
                                 }
-                            }
+                              };
+
+
+                            var lineChart = new Chart('points_chart', 
+                            {
+                                type: 'line',
+                                data: datas,
+                                options: chartOptions
                             });
                         </script>
                     </div>

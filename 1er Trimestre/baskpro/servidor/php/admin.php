@@ -87,6 +87,31 @@
             </form>
         </table>
     </div>
+    <div>
+    <h3>Update Team</h3>
+    <table>
+            <form method="post" action="admin/update_team.php" name="delete_team" enctype="multipart/form-data">
+                <tr>
+                    <td>Choose team to update:</td>
+                    <td>
+                        <select name="team_delete">
+                        <?php
+                            $conn -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                            $teams = $conn ->query("SELECT * FROM teams"); 
+                            while($fila = $teams->fetch(PDO::FETCH_ASSOC))
+                            {
+                                $id = $fila['id'];
+                                $name = $fila['full_name'];
+                                echo "<option value=".$id.">".$name."</option>";
+                            }
+                        ?>
+                        </select>
+                    </td>
+                    <td><button type="submit" name="delete" value="detele">Delete team</button></td>
+                </tr>
+            </form>
+        </table>
+    </div>
 </div>
 
 <?php include'../inc/piedepagina.inc'?>
