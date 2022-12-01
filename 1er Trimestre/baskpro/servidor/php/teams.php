@@ -31,10 +31,9 @@
                     <canvas id='points_chart' style='max-width:600px'></canvas>
                         <script>
                             var x_local_points= [];
-                            var y_local_dates = [7,8,8,9,9,9,10,11,14,14,15];
-
                             var x_visit_points = [];
-                            var y_visit_dates = [7,8,8,9,9,9,10,11,14,14,15];
+                            var y_dates = [];
+
                         ";  
                         $local_t = $conn->query("SELECT * FROM matches WHERE id_local_team = $id");
                         while($local_p = $local_t->fetch(PDO::FETCH_ASSOC))
@@ -47,9 +46,15 @@
                         {
                             echo"x_visit_points.push(".$visit_p['visit_points'].");";
                         }
+                        $dates_m = $conn->query("SELECT * FROM matches WHERE id_visit_team = $id or id_local_team = $id");
+                        while($day_m = $dates_m->fetch(PDO::FETCH_ASSOC))
+                        {
+                            echo"y_dates.push(".$day_m['match_day'].");";
+                        }
                         echo"
                             console.log(x_local_points);
                             console.log(x_visit_points);
+                            console.log(y_dates);
                             
                             var data_local =
                             {
@@ -73,7 +78,7 @@
 
                             var datas = 
                             {
-                                labels: y_visit_dates,
+                                labels: y_dates,
                                 datasets: [data_local, data_visit]
                             };
 
