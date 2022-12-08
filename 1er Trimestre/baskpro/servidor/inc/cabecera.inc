@@ -26,7 +26,7 @@
                     <a class="nav-link active" aria-current="page" href="../index.php">Home</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Matches</a>
+                    <a class="nav-link active" aria-current="page" href="../php/matches.php">Matches</a>
                     </li>
                     <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="../php/teams.php">Teams</a>
