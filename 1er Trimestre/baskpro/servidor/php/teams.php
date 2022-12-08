@@ -22,9 +22,51 @@
                     </div>
             </div>";
         }
+    //RANKING TABLE
         echo "<div class='row'>
                     <div class ='col d-flex justify-content-center'>
-                        <div class='col d-flex justify-content-center'>C</div>
+                        <div class='col d-flex justify-content-center'>
+                        <table class='table'>
+                            <thead>
+                                <tr>
+                                <th scope='col'>Team</th>
+                                <th scope='col'>Victories</th>
+                                <th scope='col'>Loses</th>
+                                <th scope='col'>Total matches</th>
+                                <th scope='col'>Win %</th>
+                                </tr>
+                            </thead>
+                            
+                            <tbody>";
+                            $res2 = $conn->query("SELECT teams.full_name, victory, lose, total_matches, ranking.id, percentage 
+                            FROM ranking 
+                            inner join teams on teams.id = ranking.id_team 
+                            inner join leagues on leagues.id = teams.league 
+                            where leagues.id like ".$fila['league']." 
+                            ORDER BY `percentage` desc");
+                            while($fila3 = $res2 -> fetch(PDO::FETCH_ASSOC))
+                            {
+                                if($fila3['id'] == $fila['id'])
+                                {
+                                    echo"
+                                    <tr style='background-color:rgba(75, 192, 192,0.3)'>";
+                                }
+                                if($fila3['id'] != $fila['id'])
+                                {
+                                    echo"<tr>";
+                                }
+                                echo"
+                                        <th scope='row'>".$fila3['full_name']."</th>
+                                        <td>".$fila3['victory']."</td>
+                                        <td>".$fila3['lose']."</td>
+                                        <td>".$fila3['total_matches']."</td>
+                                        <td>".$fila3['percentage']."</td>
+                                    </tr>";
+                            }
+                            echo"
+                            </tbody>
+                            </table>
+                        </div>
                         <div class='col d-flex justify-content-center'>D</div>
                     </div> 
                     <div class ='col d-flex justify-content-center'>
