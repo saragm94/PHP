@@ -89,7 +89,6 @@
                             $dates_m = $conn->query("SELECT day(matches.match_day), month(matches.match_day) FROM matches WHERE id_visit_team = $id or id_local_team = $id");
                             while($day_m = $dates_m->fetch(PDO::FETCH_ASSOC))
                             {
-                                
                                 $date_temp = $day_m['month(matches.match_day)'];
                                 echo"y_dates.push(".$date_temp.");";
 

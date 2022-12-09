@@ -10,7 +10,7 @@
         <div>
         <h3>Add Team</h3>
         <table>
-            <form method='post action='admin/add_team.php' name='add_team' enctype='multipart/form-data'>
+            <form method='post' action='admin/add_team.php' name='add_team' enctype='multipart/form-data'>
             <tr>
                 <div class='form-element'>
                     <td><label>Full name:</label></td>
@@ -176,11 +176,11 @@
         <div>
         <h3>Add Team image</h3>
         <table>
-            <form method='post action='admin/add_team_image.php' name='add_team_image' enctype='multipart/form-data'>
+            <form method='post' action='admin/add_team_image.php' name='add_team_image' enctype='multipart/form-data'>
             <tr>
                 <td>Choose a team:</td>
                 <td>
-                    <select name='team_update'>";
+                    <select name='team_image_new'>";
                         $conn -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                         $teams = $conn ->query("SELECT * FROM teams WHERE active = 1"); 
                         while($fila = $teams->fetch(PDO::FETCH_ASSOC))

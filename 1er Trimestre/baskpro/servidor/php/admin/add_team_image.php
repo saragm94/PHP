@@ -1,7 +1,7 @@
 <?php include'../../inc/connect.inc'?>
 <?php include'../../inc/session.inc'?>
 <?php
-    $id = $_POST['team_image_id'];
+    $id = $_POST['team_image_new'];
 
     $conn -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
@@ -18,7 +18,7 @@
         $rute_dest = $rute.'/'.$image_name;
         if(move_uploaded_file($rute_tmp,$rute_dest))
         {
-            $res2 = "INSERT INTO teams_images(`id_team`, `image`) VALUES ('$id','$rute_dest')";
+            $res2 = "INSERT INTO team_images(`id_team`, `image`) VALUES ('$id','$rute_dest')";
             $conn->exec($res2);
         }
         else{
