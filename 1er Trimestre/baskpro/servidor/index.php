@@ -1,3 +1,4 @@
+<?php include'inc/session.inc'?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,12 +32,29 @@
                     <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="php/teams.php">Teams</a>
                     </li>
-                    <!--<li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Players</a>
-                    </li>-->
-                    <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="php/login.php">Login</a>
-                    </li>
+                    <?php
+                    $username = $_SESSION["username"];
+                    $role = $_SESSION["role"];
+                        if(is_null($username))
+                        {
+                            echo"
+                            <li class='nav-item'>
+                            <a class='nav-link active' aria-current='page' href='php/login.php'>Login</a>
+                            </li>";
+                        }
+                        if(!is_null($username))
+                        {
+                            $username = $_SESSION["username"];
+                            $role = $_SESSION["role"];
+                            echo"
+                            <li class='nav-item'>
+                            <a class='nav-link active' aria-current='page' href='php/admin.php'>".$username."</a>
+                            </li>
+                            <li class='nav-item'>
+                            <a class='nav-link active' aria-current='page' href='php/close_session.php'>Close session</a>
+                            </li>";
+                        }
+                    ?>
                 </ul>
             </div>
         </div>
@@ -60,8 +78,8 @@ try{
         echo"
         <div class='row border d-flex justify-content-center text-center mt-5 mx-5'>";
             
-            $local = $conn->query("SELECT * FROM teams inner join matches on matches.id_local_team = teams.id where teams.id like $id_l order by match_day desc limit 1");
-            $visit = $conn->query("SELECT * FROM teams inner join matches on matches.id_visit_team = teams.id where teams.id like $id_v order by match_day desc limit 1");
+            $local = $conn->query("SELECT * FROM teams inner join matches on matches.id_local_team = teams.id where teams.id like $id_l and active = 1 order by match_day desc limit 1");
+            $visit = $conn->query("SELECT * FROM teams inner join matches on matches.id_visit_team = teams.id where teams.id like $id_v and active = 1 order by match_day desc limit 1");
             while($fila2 = $local -> fetch(PDO::FETCH_ASSOC))
             {
                 $rank_l =  $conn->query("SELECT * FROM ranking WHERE id_team like $id_l");

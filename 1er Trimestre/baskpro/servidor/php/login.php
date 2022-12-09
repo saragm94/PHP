@@ -1,5 +1,6 @@
 <?php include'../inc/cabecera.inc'?>
 <?php include'../inc/connect.inc'?>
+<?php include'../inc/session.inc'?>
 <form method="post" action="login_check.php" name="login_inicio">
     <div class="form-element">
         <label>Username</label>

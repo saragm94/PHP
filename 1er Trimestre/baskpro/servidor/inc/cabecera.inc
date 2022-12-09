@@ -1,3 +1,4 @@
+<?php include'session.inc'?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,12 +32,29 @@
                     <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="../php/teams.php">Teams</a>
                     </li>
-                    <!--<li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Players</a>
-                    </li>-->
-                    <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="../php/login.php">Login</a>
-                    </li>
+                    <?php
+                        $username = $_SESSION["username"];
+                        $role = $_SESSION["role"];
+                        if(is_null($username))
+                        {
+                            echo"
+                            <li class='nav-item'>
+                            <a class='nav-link active' aria-current='page' href='../php/login.php'>Login</a>
+                            </li>";
+                        }
+                        if(!is_null($username))
+                        {
+                            $username = $_SESSION["username"];
+                            $role = $_SESSION["role"];
+                            echo"
+                            <li class='nav-item'>
+                            <a class='nav-link active' aria-current='page' href='../php/close_session.php'>".$username."</a>
+                            </li>
+                            <li class='nav-item'>
+                            <a class='nav-link active' aria-current='page' href='../php/close_session.php'>Close session</a>
+                            </li>";
+                        }
+                    ?>
                 </ul>
             </div>
         </div>

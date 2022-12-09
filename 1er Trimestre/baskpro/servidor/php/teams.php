@@ -1,11 +1,12 @@
 <?php include'../inc/cabecera.inc'?>
 <?php include'../inc/connect.inc'?>
+<?php include'../inc/session.inc'?>
 <link rel="stylesheet" href="../css/style.css">
 <?php 
 $resultado = '';
 try{
     $conn -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $resultado = $conn->query("SELECT * FROM teams");
+    $resultado = $conn->query("SELECT * FROM teams where active = 1 ");
     echo"
     <div class='py-4'>
         <div class='container'>
