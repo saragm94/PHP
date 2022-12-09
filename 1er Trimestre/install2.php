@@ -356,20 +356,6 @@ try
       (2,'../img/teams_images/977942df-3de2-4958-860b-728e391b1bfe-sky-early.png'),
       (2,'../img/teams_images/sky-win-g.png');";
 
-      $sql .= "INSERT INTO `teams` (`full_name`,`abbreviation`,`nickname`,`city`,`state`, `year_founded`,`modality`) VALUES
-      ('Atlanta Dream', 'ATL', 'Dream', 'Atlanta', 'Atlanta', 2007, 'FEM' ),
-      ('Chicago Sky', 'SKY', 'Sky', 'Chicago', 'Illinois',2006, 'FEM' ),
-      ('Connecticut Sun', 'SUN', 'Sun', 'Uncasville', 'Connecticut', 1999, 'FEM' ),
-      ('Indiana Fever', 'FEV', 'Fever', 'Indianapolis', 'Indiana', 2000, 'FEM' ),
-      ('New York Liberty', 'LIB', 'Liberty', 'Brooklyn', 'New York', 1996, 'FEM' ),
-      ('Washington Mystics', 'MYS', 'Mystics', 'Washington', 'D.C.', 1998, 'FEM' ),
-      ('Dallas Wings', 'WIN', 'Wings', 'University of Texas at Arlington Arlington', 'Texas', 1998, 'FEM' ),
-      ('Las Vegas Aces', 'ACE', 'Aces', 'Paradise', 'Nevada', 1997, 'FEM' ),
-      ('Los Angeles Sparks', 'SPA', 'Sparks', 'Los Angeles', 'California', 1997, 'FEM' ),
-      ('Minnesota Lynx', 'LYN','Lynx', 'Minneapolis', 'Minnesota', 1999, 'FEM' ),
-      ('Phoenix Mercury', 'MER', 'Mercury', 'Phoenix', 'Arizona', 1997, 'FEM' ),
-      ('Seattle Storm', 'STO', 'Storm', 'Seattle', 'Washington', 1999, 'FEM' );";
-
       //MATCHES
       $sql .= "CREATE TABLE IF NOT EXISTS `matches` (
           `id` int( 255) NOT NULL AUTO_INCREMENT,

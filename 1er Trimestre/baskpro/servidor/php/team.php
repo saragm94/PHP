@@ -41,9 +41,7 @@
                             <tbody>";
                             $res2 = $conn->query("SELECT teams.full_name, victory, lose, total_matches, ranking.id, percentage 
                             FROM ranking 
-                            inner join teams on teams.id = ranking.id_team 
-                            inner join leagues on leagues.id = teams.league 
-                            where leagues.id like ".$fila['league']." 
+                            inner join teams on teams.id = ranking.id_team                              
                             ORDER BY `percentage` desc ");
                             while($fila3 = $res2 -> fetch(PDO::FETCH_ASSOC))
                             {
