@@ -19,7 +19,7 @@ try{
         while($fila2 = $img -> fetch(PDO::FETCH_ASSOC))
         {
             echo "
-                <div class='card mx-2 mt-2 col-3''>
+                <div class='card mx-2 mt-2 col-12 col-md-3''>
                     <div class='card-block text-center'>
                         <img id='logo' src='../teams/".$fila2['logo']."'class='card-img-top mx-auto ' alt=''".$fila2['logo']."'>
                         <div class='card-body'>

@@ -78,13 +78,13 @@ try{
         echo"
         <div class='row border d-flex justify-content-center text-center mt-5 mx-5'>";
             
-            $local = $conn->query("SELECT * FROM teams inner join matches on matches.id_local_team = teams.id where teams.id like $id_l and active = 1 order by match_day desc limit 1");
-            $visit = $conn->query("SELECT * FROM teams inner join matches on matches.id_visit_team = teams.id where teams.id like $id_v and active = 1 order by match_day desc limit 1");
+            $local = $conn->query("SELECT * FROM teams inner join matches on matches.id_local_team = teams.id where teams.id like $id_l order by match_day desc limit 1");
+            $visit = $conn->query("SELECT * FROM teams inner join matches on matches.id_visit_team = teams.id where teams.id like $id_v order by match_day desc limit 1");
             while($fila2 = $local -> fetch(PDO::FETCH_ASSOC))
             {
                 $rank_l =  $conn->query("SELECT * FROM ranking WHERE id_team like $id_l");
                 echo"
-                <div class='col-3 border align-center'>
+                <div class='col-3 d-none d-xl-block align-center'>
                     <p><b>".$fila2['full_name']."</b></p>
                     <table class='table'>
                         <thead>
@@ -96,26 +96,26 @@ try{
                         </thead>
                     </table>
                 </div>
-                <div class='col-2 border'>
+                <div class='col-lg-2 col-sm-4'>
                     <img id='logo' src='servidor/".$fila2['logo']."'class='card-img-top mx-auto ' alt=''".$fila2['logo']."'>
                     <p class='mt-2'>".$fila2['abbreviation']."</p>
                 </div>";
             }
                 echo"
-                <div class='row col-2 align-self-center'>
-                    <div class='col border fs-1 align-self-center'>".$fila['local_points']."</div>
-                    <div class= 'col border fs-1 align-self-center'>".$fila['visit_points']."</div>
-                    <p class='align-self-center'>".$fila['match_day']."</p>
+                <div class='row col-2 col-md-4 col-lg-2 col-sm-4 align-self-center d-flex'>
+                    <div class='col fs-1 align-self-center order-0'>".$fila['local_points']."</div>
+                    <div class= 'col fs-1 align-self-center order-2 order-sm-1'>".$fila['visit_points']."</div>
+                    <p class='align-self-center order-xs-1 order-2 d-none d-sm-block'>".$fila['match_day']."</p>
                 </div>
                 ";
             while($fila3 = $visit -> fetch(PDO::FETCH_ASSOC))
             {
                 echo"
-                <div class='col-2 border'>
+                <div class='col-lg-2 col-sm-4'>
                     <img id='logo' src='servidor/".$fila3['logo']."'class='card-img-top mx-auto ' alt=''".$fila3['logo']."'>
                     <p class='mt-2'>".$fila3['abbreviation']."</p>
                 </div>
-                <div class='col-3 border'>
+                <div class='col-3 d-none d-xl-block'>
                     <p><b>".$fila3['full_name']."</b></p>
                     <table class='table'>
                         <thead>

@@ -69,7 +69,7 @@
                     </div> 
                     <div class ='col-6 d-flex justify-content-center'>
                         <div class='container'>
-                            <canvas id='points_chart' style='max-width:500px max-heigth:300px'></canvas>
+                            <canvas id='points_chart' style='max-width:900px max-heigth:500px'></canvas>
                             <script>
                                 var x_local_points= [];
                                 var x_visit_points = [];
@@ -123,7 +123,7 @@
                                 var datas = 
                                 {
                                     labels: y_dates,
-                                    datasets: [data_local]
+                                    datasets: [data_local, data_visit]
                                 };
 
                                 var chartOptions = {

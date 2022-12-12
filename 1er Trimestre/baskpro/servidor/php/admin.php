@@ -1,13 +1,13 @@
 <?php include'../inc/cabecera.inc'?>
 <?php include'../inc/connect.inc'?>
 <?php include'../inc/session.inc'?>
-<div class='container row'>
+<div class='container row d-flex'>
 <?php 
     $role = $_SESSION["role"];
     if($role == 1 || $role == 2)
     {
         echo"
-        <div>
+        <div class='mt-4'>
         <h3>Add Team</h3>
         <table>
             <form method='post' action='admin/add_team.php' name='add_team' enctype='multipart/form-data'>
@@ -71,7 +71,7 @@
     if($role == 1)
     {
         echo"
-        <div>
+        <div class='mt-4'>
             <h3>Delete Team</h3>
             <table>
                 <form method='post' action='admin/delete_team.php' name='delete_team' enctype='multipart/form-data'>
@@ -100,7 +100,7 @@
     if($role == 1 || $role == 2 || $role == 3)
     {
         echo"
-        <div>
+        <div class='mt-4'>
             <h3>Update Team</h3>
             <table>
                 <form method='post' action='admin/update_team.php' name='update_team' enctype='multipart/form-data'>
@@ -173,7 +173,7 @@
                 </form>
             </table>
         </div>
-        <div>
+        <div class='mt-4'>
         <h3>Add Team image</h3>
         <table>
             <form method='post' action='admin/add_team_image.php' name='add_team_image' enctype='multipart/form-data'>
