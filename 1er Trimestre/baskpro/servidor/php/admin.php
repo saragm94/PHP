@@ -172,7 +172,11 @@
                     </tr>
                 </form>
             </table>
-        </div>
+        </div>";
+        }
+        if($role == 1 || $role == 2 || $role == 3 || $role == 0)
+        {
+            echo"
         <div class='mt-4'>
         <h3>Add Team image</h3>
         <table>
@@ -204,10 +208,11 @@
                 <td><button type='submit' name='upload' value='upload'>Upload image</button></td>
             </tr>
             </form>
-        </table>
+        </table>";
+        }
+        echo"       
     </div>
         ";
-    }
 ?>
 </div>
 
